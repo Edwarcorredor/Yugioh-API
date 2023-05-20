@@ -1,15 +1,18 @@
 export class ElementCard extends HTMLElement {
-    constructor() {
+    
+    constructor(card) {
       super();
       this.attachShadow({ mode: "open" });
-      this.styleSheet = this.style();
+      this.infoCard = card;
+      this.styleSheet = this.style(card.card_images[0].image_url);
+      
     }
   
     connectedCallback() {
       this.render();
     }
   
-    style() {
+    style(imagen = "/src/reverso.jpg") {
       return /*css*/ `
         .card {
           margin: 10px;  
@@ -18,10 +21,10 @@ export class ElementCard extends HTMLElement {
           text-align: right;
           color: #181a1a;
           width: 168px;
-          height: 246px;
+          height: 250px;
           box-shadow: 0 1px 5px #00000099;
           border-radius: 10px;
-          background-image: url(https://images.ygoprodeck.com/images/cards/6983839.jpg);
+          background-image: url(${imagen});
           background-size: cover;
           position: relative;
           transition-duration: 300ms;
