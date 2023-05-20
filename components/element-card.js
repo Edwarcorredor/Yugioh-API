@@ -4,9 +4,15 @@ export class ElementCard extends HTMLElement {
       super();
       this.attachShadow({ mode: "open" });
       this.infoCard = card;
+      this.setAttribute("data-bs-toggle","modal")
+      this.setAttribute("data-bs-target","#exampleModal")
       this.styleSheet = this.style(card.card_images[0].image_url);
       
     }
+
+    infoModal = /*html*/ `
+    
+    `
   
     connectedCallback() {
       this.render();
@@ -14,6 +20,14 @@ export class ElementCard extends HTMLElement {
   
     style(imagen = "/src/reverso.jpg") {
       return /*css*/ `
+      .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Centra las tarjetas horizontalmente */
+        gap: 10px; /* Espacio entre las tarjetas */
+        margin: 0 auto; /* Centra el contenedor de las tarjetas */
+        max-width: 100%; /* Asegura que las tarjetas no se desborden horizontalmente */
+      }
         .card {
           margin: 10px;  
           font-weight: bold;

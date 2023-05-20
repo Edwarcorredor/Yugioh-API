@@ -2,3 +2,9 @@ body {
     background-color: #31102F;
     
 }
+
+.row-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
