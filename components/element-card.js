@@ -110,6 +110,13 @@ export class ElementCard extends HTMLElement {
         $card.style.background = '';
       });
     }
+
+    mostrarModal(){
+      const $card = this.shadowRoot.querySelector('.card');
+      $card.addEventListener('click', () => {
+        console.log('card clicked');
+      });
+    }
   
     render(){
         this.shadowRoot.innerHTML = /* html*/`
@@ -119,6 +126,7 @@ export class ElementCard extends HTMLElement {
         </div> 
       `;
       this.cardMove();
+      this.mostrarModal();
     }
 }
 
