@@ -1,4 +1,4 @@
-import { ElementCard } from "/components/element-card.js";
+import { ElementCard } from "./components/element-card.js";
 const buscador = document.querySelector("#buscador");
 const btnChange = document.querySelectorAll(".btn-change");
 let formulario
