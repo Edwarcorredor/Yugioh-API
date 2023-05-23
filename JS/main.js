@@ -1,21 +1,33 @@
 import { ElementCard } from "/components/element-card.js";
-const buscador = document.querySelector("#buscador")
-let cards = document.getElementsByTagName("element-card")
+const buscador = document.querySelector("#buscador");
+const btnChange = document.querySelectorAll(".btn-change");
+let formulario
+let offset = 0;
+let page =0;
 
-const getCardsFilter = async(e) => {
-  e.preventDefault();
-  const data = Object.fromEntries(new FormData(e.target))
-  console.log(data)
+const getCardsFilter = async (data) => {
   let respuesta = ""
   switch(parseInt(data.filtro)){
     case 0:{
-      respuesta = await (await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${data.entrada}&num=20&offset=0`)).json();
-      console.log(respuesta)
-    }
+      respuesta = await (await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${data.entrada}&num=20&offset=${offset}`)).json();
+      break;
+    };
+    case 1:{
+      respuesta = await (await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?attribute=${data.entrada}&num=20&offset=${offset}`)).json();
+      break;
+    };
+    case 2:{
+      respuesta = await (await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?race=${data.entrada}&num=20&offset=${offset}`)).json();
+      break;
+    };
+    case 3:{
+      respuesta = await (await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?level=${data.entrada}&num=20&offset=${offset}`)).json();
+      break;
+    };
   }
   mostrarCardsFilter(respuesta)
-
 }
+
 
 const mostrarCardsFilter = async (respuesta) => {
   const cardsFilter = document.querySelector("#cards-filter");
@@ -50,4 +62,21 @@ for(let i=0; i<respuesta.data.length; i++){
 }
 
 getCardsTop()
-buscador.addEventListener("submit",getCardsFilter)
+buscador.addEventListener("submit",(e) => {
+  e.preventDefault();
+  formulario = Object.fromEntries(new FormData(e.target))
+  e.target.reset()
+  getCardsFilter(formulario)
+})
+btnChange[0].addEventListener("click", (e)=>{
+  if(page !== 0){
+    page -= 1;
+    offset = page * 20
+    getCardsFilter(formulario);
+  }
+})
+btnChange[1].addEventListener("click", (e)=>{
+  page += 1;
+  offset = page * 20
+  getCardsFilter(formulario);
+})
