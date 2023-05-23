@@ -9,10 +9,6 @@ export class ElementCard extends HTMLElement {
       this.styleSheet = this.style(card.card_images[0].image_url);
       
     }
-
-    infoModal = /*html*/ `
-    
-    `
   
     connectedCallback() {
       this.render();
@@ -109,12 +105,63 @@ export class ElementCard extends HTMLElement {
         $card.style.transform = '';
         $card.style.background = '';
       });
-    }
 
-    mostrarModal(){
-      const $card = this.shadowRoot.querySelector('.card');
       $card.addEventListener('click', () => {
-        console.log('card clicked');
+        const modal = document.querySelector("#contenido-modal");
+        console.log(this.infoCard)
+        modal.innerHTML = /*html*/`
+        <div class="col text-center">
+        <img src=${this.infoCard.card_images[0].image_url} width="300vh" alt="reverso">
+        </div>
+        <div class="col">
+          <div class="row">
+            <div class="container text-center border border-danger">
+              <div class="row border border-danger">
+                <h5>${this.infoCard.name}</h5>
+              </div>
+              <div class="row border border-danger">
+                <div class="col border border-danger">
+                  <label>Attack: </label>
+                  <label>${this.infoCard.atk}</label>
+                </div>
+                <div class="col border border-danger">
+                  <label>Defense: </label>
+                  <label>${this.infoCard.def}</label>
+                </div>
+                <div class="col border border-danger">
+                  <label>Level: </label>
+                  <label>${this.infoCard.level}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col border border-danger">
+                  <label>Archetype: </label>
+                  <label>${this.infoCard.archetype}</label>
+                </div>
+                <div class="col border border-danger">
+                  <label>Attribute: </label>
+                  <label>${this.infoCard.attribute}</label>
+                </div>
+                <div class="col border border-danger">
+                  <label>Race: </label>
+                  <label>${this.infoCard.race}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col border border-danger">
+                  <label>Type: </label>
+                  <label>${this.infoCard.type}</label>
+                </div>
+              </row>
+            </div>
+          </div>
+          <div class="row">
+            <h5>Description:</h5> 
+            <p>${this.infoCard.desc}</p>
+          </div>
+        </div>
+        
+        `
       });
     }
   
@@ -126,7 +173,6 @@ export class ElementCard extends HTMLElement {
         </div> 
       `;
       this.cardMove();
-      this.mostrarModal();
     }
 }
 

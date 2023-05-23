@@ -1,6 +1,6 @@
 import { ElementCard } from "/components/element-card.js";
 const buscador = document.querySelector("#buscador")
-let offset = 0
+let cards = document.getElementsByTagName("element-card")
 
 const getCardsFilter = async(e) => {
   e.preventDefault();
